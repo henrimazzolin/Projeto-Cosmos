@@ -10,6 +10,7 @@
 
 <body>
     <main class="tela-inicial">
+        <div class="tela-frame tela-frame-menu">
         <section class="menu">
             <p class="nome-projeto">projeto cosmos</p>
 
@@ -23,8 +24,10 @@
                 <button type="button" id="botao-creditos">créditos</button>
             </div>
         </section>
+        </div>
     </main>
     <section class="historia" id="historia" hidden>
+        <div class="tela-frame tela-frame-historia">
         <div class="caixa-historia">
             <h2>Alerta orbital</h2>
 
@@ -35,8 +38,10 @@
 
             <button type="button" id="botao-jogar" hidden>jogar</button>
         </div>
+        </div>
     </section>
     <section class="selecao-nave" id="selecao-nave" hidden>
+        <div class="tela-frame tela-frame-selecao">
         <div class="caixa-selecao">
             <h2>Escolha sua nave</h2>
 
@@ -87,9 +92,10 @@
                 </div>
             </div>
         </div>
+        </div>
     </section>
     <section class="jogo" id="jogo" hidden>
-        <div class="arena">
+        <div class="arena tela-frame">
             <div class="hud">
                 <p>fase: <span id="hud-fase">Órbita Baixa</span></p>
                 <p>score: <span id="hud-score">0</span></p>
