@@ -15,9 +15,14 @@ const botao_jogar = document.querySelector("#botao-jogar");
 
 const selecao_nave = document.querySelector("#selecao-nave");
 
+const botao_escolher_escudo = document.querySelector("#escolher-escudo");
+const jogo = document.querySelector("#jogo");
+
 const historia_completa = texto_historia.textContent.replace(/\s+/g, " ").trim(); // remove espaços em branco extras e quebras de linha, \s sao espacos e + significa um ou mais, g significa global, trim remove espaços no inicio e no final
 let letra = 0; //let porque as letras podem mudar, 0 porque começa do inicio
 let digitando = false;
+
+let nave_escolhida = ""; //escolha pode mudar ao reiniciar
 
 function escrever_historia() {
     if (letra < historia_completa.length) { //verifica quantas letras tem na historia e faz um check p ver se ele ja terminou de escrever a historia, se for menor que o tamanho da historia ele continua escrevendo
@@ -70,4 +75,11 @@ historia.addEventListener("click", function () {
 botao_jogar.addEventListener("click", function () {
     historia.hidden = true; //se a historia estiver completa, ele esconde a historia
     selecao_nave.hidden = false; //mostra a tela de seleção de naves
+});
+
+
+botao_escolher_escudo.addEventListener("click", function () {
+    nave_escolhida = "escudo";
+    selecao_nave.hidden = true;
+    jogo.hidden = false;
 });
