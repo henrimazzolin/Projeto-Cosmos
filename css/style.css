@@ -309,6 +309,23 @@ body {
     margin-bottom: 8px;
 }
 
+.grupo-vidas {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    vertical-align: middle;
+}
+
+.opcao-nave .icone-vida,
+.hud .icone-vida {
+    width: 16px;
+    max-width: none;
+    height: 16px;
+    margin: 0;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
 .opcao-nave h3 {
     color: #65e6ff;
     font-size: 20px;
@@ -406,4 +423,48 @@ body {
     transform: translateY(-50%);
     object-fit: contain;
     image-rendering: pixelated;
+}
+
+.tiro {
+    position: absolute;
+    left: 190px;
+    top: 50%;
+    width: 96px;
+    height: 48px;
+    object-fit: contain;
+    transform: translateY(-50%);
+    image-rendering: pixelated;
+    animation: mover-tiro 1s linear forwards;
+}
+
+@keyframes mover-tiro {
+    from {
+        left: 190px;
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+.obstaculo {
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    transform: translateY(-50%);
+    image-rendering: pixelated;
+    animation: mover-obstaculo 4s linear forwards;
+}
+
+@keyframes mover-obstaculo {
+    from {
+        right: -80px;
+    }
+
+    to {
+        right: 100%;
+    }
 }
