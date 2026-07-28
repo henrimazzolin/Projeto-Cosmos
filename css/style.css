@@ -1,0 +1,303 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    color: white;
+    background-color: #020611;
+    font-family: "Courier New", monospace;
+}
+
+.tela-inicial {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../assets/images/backgrounds/orbita-baixa-v2.png");
+    background-position: center;
+    background-size: cover;
+    image-rendering: pixelated;   /* ajuda a preservar os pixels */
+}
+
+.tela-inicial[hidden] {
+    display: none;
+}
+
+.menu {
+    width: 560px;
+    max-width: 90%;
+    padding: 32px;
+    text-align: center;
+    background-color: rgba(2, 10, 30, 0.82);
+    border: 4px solid #65e6ff;
+    box-shadow: 8px 8px 0 #08172f;
+}
+
+.nome-projeto {
+    color: #f3f6f7;
+    font-size: 23px;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 2px solid #ffffff;
+}
+
+.menu h1 {
+    font-size: 52px;
+    line-height: 1;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0 #2d2e30;
+    margin-bottom: 18px;
+}
+
+.frase {
+    color: #bcefff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+.botoes {
+    width: 280px;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.botoes button {
+    min-height: 48px;
+    padding: 10px 18px;
+    color: white;
+    background-color: #102754;
+    border: 3px solid #65e6ff;
+    box-shadow: 4px 4px 0 #020611;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.botoes button:hover {
+    color: #020611;
+    background-color: #65e5ff7e;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #020611;
+}
+
+/* #botao-start {
+    color: #201000;
+    background-color: #ffb52e;
+    border-color: #ffe08a;
+} */
+
+.modal {       /*css qie vai ser usado em todos os modais */
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 10;
+}
+
+.modal[hidden] {
+    display: none;
+}
+
+.caixa-modal {
+    width: 500px;
+    max-width: 100%;
+    padding: 28px;
+    text-align: center;
+    background-color: #07142f;
+    border: 4px solid #65e6ff;
+    box-shadow: 8px 8px 0 #020611;
+}
+
+.caixa-modal h2 {
+    color: #65e6ff;
+    font-size: 30px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.caixa-modal p {
+    margin-bottom: 12px;
+    line-height: 1.5;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.caixa-modal button {
+    margin-top: 12px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #102754;
+    border: 3px solid #65e6ff;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.historia {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-image: url("../assets/images/backgrounds/orbita-baixa-v2.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.historia[hidden] {
+    display: none;
+}
+
+.caixa-historia {
+    width: 760px;
+    max-width: 100%;
+    padding: 36px;
+    background-color: rgba(2, 10, 30, 0.9);
+    border: 4px solid #65e6ff;
+    box-shadow: 8px 8px 0 #020611;
+    text-align: center;
+}
+
+.caixa-historia h2 {
+    color: #65e6ff;
+    font-size: 32px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+}
+
+#texto-historia {
+    min-height: 180px;
+    color: #eafaff;
+    font-size: 22px;
+    line-height: 1.6;
+    font-weight: 550;
+}
+
+#botao-jogar {
+    display: block;
+    margin: 24px auto 0;
+    padding: 12px 28px;
+    color: #020611;
+    background-color: #65e6ff;
+    border: 3px solid white;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+#botao-jogar[hidden] {
+    display: none;
+}
+
+.selecao-nave {
+    width: 100%;
+    min-height: 100%;
+    padding: 32px 20px;
+    background-color: #020611;
+    background-image: url("../assets/images/backgrounds/orbita-baixa-v2.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.selecao-nave[hidden] {
+    display: none;
+}
+
+.caixa-selecao {
+    width: 1100px;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.caixa-selecao h2 {
+    color: #65e6ff;
+    font-size: 36px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0 #020611;
+}
+
+.caixa-selecao > p {
+    color: #bcefff;
+    font-size: 18px;
+    margin-bottom: 24px;
+}
+
+.lista-naves {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);   /*cria duas colunas de largura igual */
+    gap: 20px;
+}
+
+.opcao-nave {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(2, 10, 30, 0.9);
+    border: 3px solid #65e6ff;
+    box-shadow: 6px 6px 0 #020611;
+}
+
+.opcao-nave img {
+    width: 256px;
+    max-width: 100%;
+    height: 128px;
+    object-fit: contain; /*mantém a proporção da imagem */
+    image-rendering: pixelated;
+    margin-bottom: 12px;
+}
+
+.opcao-nave h3 {
+    color: #65e6ff;
+    font-size: 24px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.opcao-nave p {
+    font-size: 18px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.opcao-nave button {
+    margin-top: auto;
+    padding: 10px 22px;
+    color: #020611;
+    background-color: #65e6ff;
+    border: 3px solid white;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}

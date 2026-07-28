@@ -1,20 +1,133 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmos Game</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div class="screen">
-        <div class="logo">
 
+<body>
+    <main class="tela-inicial">
+        <section class="menu">
+            <p class="nome-projeto">projeto cosmos</p>
+
+            <h1>Operação Órbita Limpa</h1>
+
+            <p class="frase">limpe as órbitas e proteja o futuro</p>
+
+            <div class="botoes">
+                <button type="button" id="botao-start">start</button>
+                <button type="button" id="botao-como-jogar">como jogar</button>
+                <button type="button" id="botao-creditos">créditos</button>
+            </div>
+        </section>
+    </main>
+    <section class="historia" id="historia" hidden>
+        <div class="caixa-historia">
+            <h2>Alerta orbital</h2>
+
+            <p id="texto-historia">O espaço ao redor da Terra está ficando cheio de lixo. Satélites quebrados, partes de
+                foguetes e pequenos fragmentos atravessam as órbitas em alta velocidade. Cada colisão cria ainda mais
+                detritos e ameaça novas missões. Escolha sua nave, limpe as três regiões e impeça que o Campo Kessler
+                tome conta do céu.</p>
+
+            <button type="button" id="botao-jogar" hidden>jogar</button>
         </div>
-        <div class="btn">
-            <button><p>Start</p></button>
-            <button><p>Créditos</p></button>
+    </section>
+    <section class="selecao-nave" id="selecao-nave" hidden>
+        <div class="caixa-selecao">
+            <h2>Escolha sua nave</h2>
+
+            <p>Cada nave possui uma vantagem diferente.</p>
+
+            <div class="lista-naves">
+                <div class="opcao-nave" id="nave-escudo">
+                    <img src="assets/images/naves/nave-escudo.png" alt="Nave Escudo">
+
+                    <h3>Nave Escudo</h3>
+
+                    <p>Vida: ♥ ♥ ♥ + ♥ dourado</p>
+                    <p>Vantagem: possui um coração adicional.</p>
+
+                    <button type="button" id="escolher-escudo">escolher</button>
+                </div>
+                <div class="opcao-nave" id="nave-rajada">
+                    <img src="assets/images/naves/nave-rajada.png" alt="Nave Rajada">
+
+                    <h3>Nave Rajada</h3>
+
+                    <p>Vida: ♥ ♥ ♥</p>
+                    <p>Vantagem: possui um intervalo de tiro menor.</p>
+
+                    <button type="button" id="escolher-rajada">escolher</button>
+                </div>
+                <div class="opcao-nave" id="nave-barreira">
+                    <img src="assets/images/naves/nave-barreira.png" alt="Nave Barreira">
+
+                    <h3>Nave Barreira</h3>
+
+                    <p>Vida: ♥ ♥ ♥</p>
+                    <p>Habilidade: barreira por 3 segundos.</p>
+                    <p>Recarga: 15 segundos.</p>
+
+                    <button type="button" id="escolher-barreira">escolher</button>
+                </div>
+                <div class="opcao-nave" id="nave-impacto">
+                    <img src="assets/images/naves/nave-impacto.png" alt="Nave Impacto">
+
+                    <h3>Nave Impacto</h3>
+
+                    <p>Vida: ♥ ♥ ♥</p>
+                    <p>Habilidade: dano dobrado por 3 segundos.</p>
+                    <p>Recarga: 15 segundos.</p>
+
+                    <button type="button" id="escolher-impacto">escolher</button>
+                </div>
+            </div>
         </div>
-        <div class="footer"></div>
-    </div>
+    </section>
+    <section class="jogo" id="jogo" hidden>
+        <div class="arena">
+            <div class="hud">
+                <p>fase: <span id="hud-fase">Órbita Baixa</span></p>
+                <p>score: <span id="hud-score">0</span></p>
+                <p>vidas: <span id="hud-vidas">♥ ♥ ♥</span></p>
+                <p>habilidade: <span id="hud-habilidade">pronta</span></p>
+            </div>
+
+             <div class="campo">  <!--aqui são as linhas em que a nave vai se mover p cima e p baixo-->
+                <div class="faixa"></div>
+                <div class="faixa"></div>
+                <div class="faixa"></div>
+                <div class="faixa"></div>
+                <div class="faixa"></div>
+            </div>
+        </div>
+    </section>
+    <section class="modal" id="modal-como-jogar" hidden>
+        <div class="caixa-modal">
+            <h2>Como jogar</h2>
+
+            <p>Use W ou a seta para cima para subir.</p>
+            <p>Use S ou a seta para baixo para descer.</p>
+            <p>Pressione Espaço para coletar os lixos.</p>
+
+            <button type="button" id="botao-fechar-como-jogar">fechar</button>
+        </div>
+    </section>
+    <section class="modal" id="modal-creditos" hidden>
+        <div class="caixa-modal">
+            <h2>Créditos</h2>
+
+            <p>Projeto desenvolvido por:</p>
+            <p>nomes a definir</p>
+
+            <button type="button" id="botao-fechar-creditos">fechar</button>
+        </div>
+    </section>
 </body>
+<script src="js/menu.js"></script>
+
 </html>
