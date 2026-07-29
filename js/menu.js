@@ -45,6 +45,10 @@ const score_total_final = document.querySelector("#score-total-final");
 const botao_reiniciar = document.querySelector("#botao-reiniciar");
 const botao_menu = document.querySelector("#botao-menu");
 
+const musica_jogo = new Audio("audios/musica-opcional.mp3");
+const som_tiro = new Audio("audios/shoot.mp3");
+musica_jogo.loop = true;
+
 let score_fase = 0;  //let nesse caso é pq o score não é fixo (let para valores que podem mudar, const para valores que não mudam)
 let score_total = 0;
 
@@ -285,6 +289,7 @@ function mover_boss() {
 }
 
 function iniciar_obstaculos() {
+    musica_jogo.play();
     criar_obstaculo();
 
     gerador_obstaculos = setInterval(criar_obstaculo, 1200);
@@ -410,6 +415,8 @@ function atirar() {
     }
 
     pode_atirar = false;
+    som_tiro.currentTime = 0;
+    som_tiro.play();
 
     const tiro = document.createElement("img"); //cria um elemento img para o tiro
 
@@ -508,6 +515,7 @@ function limpar_habilidade() { //serve para limpar a habilidade ativa, caso o jo
 }
 
 function abrir_modal_fase() {
+    musica_jogo.pause();
     clearInterval(gerador_obstaculos);
     gerador_obstaculos = null;
     limpar_habilidade();
@@ -524,6 +532,7 @@ function abrir_modal_fase() {
 }
 
 function mostrar_vitoria() {
+    musica_jogo.pause();
     clearInterval(gerador_obstaculos);
     gerador_obstaculos = null;
     limpar_habilidade();
@@ -611,6 +620,7 @@ botao_reiniciar.addEventListener("click", function () {
 });
 
 botao_menu.addEventListener("click", function () {
+    musica_jogo.pause();
     clearInterval(gerador_obstaculos);
     gerador_obstaculos = null;
     clearTimeout(temporizador_historia);
@@ -702,6 +712,7 @@ botao_voltar_selecao.addEventListener("click", function () {
 });
 
 botao_voltar_jogo.addEventListener("click", function () {
+    musica_jogo.pause();
     limpar_habilidade();
     clearInterval(gerador_obstaculos);
     gerador_obstaculos = null;
