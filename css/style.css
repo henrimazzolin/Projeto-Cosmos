@@ -189,8 +189,8 @@ body {
 .caixa-modal p {
     margin-bottom: 12px;
     line-height: 1.5;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: 700;
 }
 
 .caixa-modal button {
@@ -437,6 +437,7 @@ body {
     height: calc(100% - 64px);
     display: grid;
     grid-template-rows: repeat(5, 1fr);
+    position: relative;
 }
 
 .faixa {
@@ -452,6 +453,16 @@ body {
     transform: translateY(-50%);
     object-fit: contain;
     image-rendering: pixelated;
+}
+
+.barreira-ativa {
+    filter: drop-shadow(0 0 8px #65e6ff)
+            drop-shadow(0 0 16px #65e6ff);
+}
+
+.impacto-ativo {
+    filter: drop-shadow(0 0 8px #b34cff)
+            drop-shadow(0 0 16px #ffd447);
 }
 
 .tiro {
@@ -486,6 +497,20 @@ body {
     transform: translateY(-50%);
     image-rendering: pixelated;
     animation: mover-obstaculo 4s linear forwards;
+}
+
+.boss {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: auto;
+    height: 62%;
+    max-width: 45%;
+    transform: translateY(-50%);
+    object-fit: contain;
+    image-rendering: pixelated;
+    z-index: 3;
+    transition: top 700ms linear;
 }
 
 @keyframes mover-obstaculo {

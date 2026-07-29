@@ -11,111 +11,117 @@
 <body>
     <main class="tela-inicial">
         <div class="tela-frame tela-frame-menu">
-        <section class="menu">
-            <p class="nome-projeto">projeto cosmos</p>
+            <section class="menu">
+                <p class="nome-projeto">projeto cosmos</p>
 
-            <h1>Operação Órbita Limpa</h1>
+                <h1>Operação Órbita Limpa</h1>
 
-            <p class="frase">limpe as órbitas e proteja o futuro</p>
+                <p class="frase">limpe as órbitas e proteja o futuro</p>
 
-            <div class="botoes">
-                <button type="button" id="botao-start">start</button>
-                <button type="button" id="botao-como-jogar">como jogar</button>
-                <button type="button" id="botao-creditos">créditos</button>
-            </div>
-        </section>
+                <div class="botoes">
+                    <button type="button" id="botao-start">start</button>
+                    <button type="button" id="botao-como-jogar">como jogar</button>
+                    <button type="button" id="botao-creditos">créditos</button>
+                </div>
+            </section>
         </div>
     </main>
     <section class="historia" id="historia" hidden>
         <div class="tela-frame tela-frame-historia">
-        <button type="button" class="botao-voltar" id="voltar-historia" aria-label="Voltar ao menu" title="Voltar">←</button>
-        <div class="caixa-historia">
-            <h2>Alerta orbital</h2>
+            <button type="button" class="botao-voltar" id="voltar-historia" aria-label="Voltar ao menu"
+                title="Voltar">←</button>
+            <div class="caixa-historia">
+                <h2>Alerta orbital</h2>
 
-            <p id="texto-historia">O espaço ao redor da Terra está ficando cheio de lixo. Satélites quebrados, partes de
-                foguetes e pequenos fragmentos atravessam as órbitas em alta velocidade. Cada colisão cria ainda mais
-                detritos e ameaça novas missões. Escolha sua nave, limpe as três regiões e impeça que o Campo Kessler
-                tome conta do céu.</p>
+                <p id="texto-historia">O espaço ao redor da Terra está ficando cheio de lixo. Satélites quebrados,
+                    partes de
+                    foguetes e pequenos fragmentos atravessam as órbitas em alta velocidade. Cada colisão cria ainda
+                    mais
+                    detritos e ameaça novas missões. Escolha sua nave, limpe as três regiões e impeça que o Campo
+                    Kessler
+                    tome conta do céu.</p>
 
-            <button type="button" id="botao-jogar" hidden>jogar</button>
-        </div>
+                <button type="button" id="botao-jogar" hidden>jogar</button>
+            </div>
         </div>
     </section>
     <section class="selecao-nave" id="selecao-nave" hidden>
         <div class="tela-frame tela-frame-selecao">
-        <button type="button" class="botao-voltar" id="voltar-selecao" aria-label="Voltar à história" title="Voltar">←</button>
-        <div class="caixa-selecao">
-            <h2>Escolha sua nave</h2>
+            <button type="button" class="botao-voltar" id="voltar-selecao" aria-label="Voltar à história"
+                title="Voltar">←</button>
+            <div class="caixa-selecao">
+                <h2>Escolha sua nave</h2>
 
-            <p>Cada nave possui uma vantagem diferente.</p>
+                <p>Cada nave possui uma vantagem diferente.</p>
 
-            <div class="lista-naves">
-                <div class="opcao-nave" id="nave-escudo">
-                    <img src="assets/images/naves/nave-escudo.png" alt="Nave Escudo">
+                <div class="lista-naves">
+                    <div class="opcao-nave" id="nave-escudo">
+                        <img src="assets/images/naves/nave-escudo.png" alt="Nave Escudo">
 
-                    <h3>Nave Escudo</h3>
+                        <h3>Nave Escudo</h3>
 
-                    <p>Vida: <span class="grupo-vidas" role="img" aria-label="4 vidas">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                        </span></p>
-                    <p>Vantagem: possui um coração adicional.</p>
+                        <p>Vida: <span class="grupo-vidas" role="img" aria-label="4 vidas">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                            </span></p>
+                        <p>Vantagem: possui um coração adicional.</p>
 
-                    <button type="button" id="escolher-escudo">escolher</button>
-                </div>
-                <div class="opcao-nave" id="nave-rajada">
-                    <img src="assets/images/naves/nave-rajada.png" alt="Nave Rajada">
+                        <button type="button" id="escolher-escudo">escolher</button>
+                    </div>
+                    <div class="opcao-nave" id="nave-rajada">
+                        <img src="assets/images/naves/nave-rajada.png" alt="Nave Rajada">
 
-                    <h3>Nave Rajada</h3>
+                        <h3>Nave Rajada</h3>
 
-                    <p>Vida: <span class="grupo-vidas" role="img" aria-label="3 vidas">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                        </span></p>
-                    <p>Vantagem: possui um intervalo de tiro menor.</p>
+                        <p>Vida: <span class="grupo-vidas" role="img" aria-label="3 vidas">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                            </span></p>
+                        <p>Vantagem: possui um intervalo de tiro menor.</p>
 
-                    <button type="button" id="escolher-rajada">escolher</button>
-                </div>
-                <div class="opcao-nave" id="nave-barreira">
-                    <img src="assets/images/naves/nave-barreira.png" alt="Nave Barreira">
+                        <button type="button" id="escolher-rajada">escolher</button>
+                    </div>
+                    <div class="opcao-nave" id="nave-barreira">
+                        <img src="assets/images/naves/nave-barreira.png" alt="Nave Barreira">
 
-                    <h3>Nave Barreira</h3>
+                        <h3>Nave Barreira</h3>
 
-                    <p>Vida: <span class="grupo-vidas" role="img" aria-label="3 vidas">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                        </span></p>
-                    <p>Habilidade: barreira por 3 segundos.</p>
-                    <p>Recarga: 15 segundos.</p>
+                        <p>Vida: <span class="grupo-vidas" role="img" aria-label="3 vidas">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                            </span></p>
+                        <p>Habilidade: barreira por 3 segundos.</p>
+                        <p>Recarga: 15 segundos.</p>
 
-                    <button type="button" id="escolher-barreira">escolher</button>
-                </div>
-                <div class="opcao-nave" id="nave-impacto">
-                    <img src="assets/images/naves/nave-impacto.png" alt="Nave Impacto">
+                        <button type="button" id="escolher-barreira">escolher</button>
+                    </div>
+                    <div class="opcao-nave" id="nave-impacto">
+                        <img src="assets/images/naves/nave-impacto.png" alt="Nave Impacto">
 
-                    <h3>Nave Impacto</h3>
+                        <h3>Nave Impacto</h3>
 
-                    <p>Vida: <span class="grupo-vidas" role="img" aria-label="3 vidas">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                            <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
-                        </span></p>
-                    <p>Habilidade: dano dobrado por 3 segundos.</p>
-                    <p>Recarga: 15 segundos.</p>
+                        <p>Vida: <span class="grupo-vidas" role="img" aria-label="3 vidas">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                                <img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">
+                            </span></p>
+                        <p>Habilidade: dano dobrado por 6 segundos.</p>
+                        <p>Recarga: 15 segundos.</p>
 
-                    <button type="button" id="escolher-impacto">escolher</button>
+                        <button type="button" id="escolher-impacto">escolher</button>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
     <section class="jogo" id="jogo" hidden>
         <div class="arena tela-frame">
-            <button type="button" class="botao-voltar" id="voltar-jogo" aria-label="Voltar à seleção de nave" title="Voltar">←</button>
+            <button type="button" class="botao-voltar" id="voltar-jogo" aria-label="Voltar à seleção de nave"
+                title="Voltar">←</button>
             <div class="hud">
                 <p>fase: <span id="hud-fase">Órbita Baixa</span></p>
                 <p>score: <span id="hud-score">0</span></p>
@@ -162,6 +168,38 @@
             </div>
 
             <button type="button" id="botao-fechar-creditos">fechar</button>
+        </div>
+    </section>
+    <section class="modal" id="modal-fase" hidden>
+        <div class="caixa-modal">
+            <h2 id="titulo-modal-fase">fase concluída</h2>
+
+            <p id="texto-modal-fase">A região foi limpa com sucesso.</p>
+
+            <p>score total: <span id="score-total-modal">0</span></p>
+
+            <button type="button" id="botao-proxima-fase">
+                próxima fase
+            </button>
+        </div>
+    </section>
+    <section class="modal" id="modal-final" hidden>
+        <div class="caixa-modal">
+            <h2 id="titulo-modal-final">missão concluída</h2>
+
+            <p id="texto-modal-final">
+                Parabéns! Você limpou as três regiões e protegeu as órbitas da Terra.
+            </p>
+
+            <p>score total: <span id="score-total-final">0</span></p>
+
+            <button type="button" id="botao-reiniciar">
+                jogar novamente
+            </button>
+
+            <button type="button" id="botao-menu">
+                voltar ao menu
+            </button>
         </div>
     </section>
 </body>

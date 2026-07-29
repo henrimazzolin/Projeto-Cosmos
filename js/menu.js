@@ -22,19 +22,62 @@ const botao_escolher_rajada = document.querySelector("#escolher-rajada");
 const botao_escolher_barreira = document.querySelector("#escolher-barreira");
 const botao_escolher_impacto = document.querySelector("#escolher-impacto");
 const jogo = document.querySelector("#jogo");
+const arena = document.querySelector(".arena");
+const campo = document.querySelector(".campo");
 const botao_voltar_jogo = document.querySelector("#voltar-jogo");
+
+const modal_fase = document.querySelector("#modal-fase");
+const titulo_modal_fase = document.querySelector("#titulo-modal-fase");
+const texto_modal_fase = document.querySelector("#texto-modal-fase");
+const score_total_modal = document.querySelector("#score-total-modal");
+const botao_proxima_fase = document.querySelector("#botao-proxima-fase");
 
 const nave_jogador = document.querySelector("#nave-jogador");
 const hud_vidas = document.querySelector("#hud-vidas");
 const hud_habilidade = document.querySelector("#hud-habilidade");
 const hud_score = document.querySelector("#hud-score");
+const hud_fase = document.querySelector("#hud-fase");
+
+const modal_final = document.querySelector("#modal-final");
+const titulo_modal_final = document.querySelector("#titulo-modal-final");
+const texto_modal_final = document.querySelector("#texto-modal-final");
+const score_total_final = document.querySelector("#score-total-final");
+const botao_reiniciar = document.querySelector("#botao-reiniciar");
+const botao_menu = document.querySelector("#botao-menu");
+
 let score_fase = 0;  //let nesse caso é pq o score não é fixo (let para valores que podem mudar, const para valores que não mudam)
 let score_total = 0;
 
+let fase_atual = 1; //esse começa em 1 e vai aumentando a cada fase, para que o jogador saiba em qual fase ele está
+
 let vidas = 3;
 let protegido = false;
+let habilidade_pronta = true;
+
+let barreira_ativa = false;
+let dano_dobrado = false;
+
+let fim_habilidade;
+let fim_recarga;
 
 let gerador_obstaculos;
+
+let boss;
+let boss_ativo = false;
+let vida_boss = 0;
+let quadro_boss = 0;
+let animacao_boss;
+let movimento_boss;
+let faixa_boss = 2;
+let direcao_boss = 1;
+
+const posicoes_boss = [
+    "31%",
+    "40%",
+    "50%",
+    "60%",
+    "69%"
+]
 
 const imagens_tiro = {  //listinha de cada tiro de cada nave, para que o jogo saiba qual imagem usar para cada tiro
     escudo: "assets/images/ui/tiro-escudo.png",
@@ -43,10 +86,75 @@ const imagens_tiro = {  //listinha de cada tiro de cada nave, para que o jogo sa
     impacto: "assets/images/ui/tiro-impacto.png"
 };
 
+const nomes_fases = [
+    "",
+    "Órbita Baixa",
+    "Órbita Média",
+    "Campo Kessler"
+];
+
+const fundos_fases = [
+    "",
+    'url("assets/images/backgrounds/orbita-baixa-v2.png")',
+    'url("assets/images/backgrounds/orbita-media-v2.png")',
+    'url("assets/images/backgrounds/campo-kessler-v2.png")'
+];
+
 const detritos_fase_1 = [
     "assets/images/detritos/fase-1/detrito-pequeno.png",
     "assets/images/detritos/fase-1/detrito-medio.png",
     "assets/images/detritos/fase-1/detrito-grande.png"
+];
+
+const detritos_fase_2 = [
+    "assets/images/detritos/fase-2/detrito-pequeno.png",
+    "assets/images/detritos/fase-2/detrito-medio.png",
+    "assets/images/detritos/fase-2/detrito-grande.png"
+];
+
+const detritos_fase_3 = [
+    "assets/images/detritos/fase-3/detrito-pequeno.png",
+    "assets/images/detritos/fase-3/detrito-medio.png",
+    "assets/images/detritos/fase-3/detrito-grande.png"
+];
+
+const detritos_fases = [
+    [],
+    detritos_fase_1,
+    detritos_fase_2,
+    detritos_fase_3
+];
+
+const sprites_bosses = [
+    [],
+    [
+        "assets/images/bosses/boss-fase-1-sprite-1.png",
+        "assets/images/bosses/boss-fase-1-sprite-2.png",
+        "assets/images/bosses/boss-fase-1-sprite-3.png"
+    ],
+    [
+        "assets/images/bosses/boss-fase-2-sprite-1.png",
+        "assets/images/bosses/boss-fase-2-sprite-2.png",
+        "assets/images/bosses/boss-fase-2-sprite-3.png"
+    ],
+    [
+        "assets/images/bosses/boss-fase-3-sprite-1.png",
+        "assets/images/bosses/boss-fase-3-sprite-2.png",
+        "assets/images/bosses/boss-fase-3-sprite-3.png"
+    ]
+];
+
+const vidas_bosses = [
+    0,
+    20,
+    30,
+    40
+];
+
+const sprites_explosao = [
+    "assets/images/efeitos/explosao-boss-sprite-1.png",
+    "assets/images/efeitos/explosao-boss-sprite-2.png",
+    "assets/images/efeitos/explosao-boss-sprite-3.png"
 ];
 
 const tempos_detritos = [
@@ -101,7 +209,7 @@ function criar_obstaculo() {
         imagem_sorteada = 2;
     }
 
-    obstaculo.src = detritos_fase_1[imagem_sorteada];
+    obstaculo.src = detritos_fases[fase_atual][imagem_sorteada];
     obstaculo.dataset.vida = imagem_sorteada + 1;
     obstaculo.style.animationDuration = tempos_detritos[imagem_sorteada];
     obstaculo.style.width = tamanhos_detritos[imagem_sorteada];
@@ -113,6 +221,67 @@ function criar_obstaculo() {
     });
 
     faixas[faixa_sorteada].appendChild(obstaculo); //sorteia uma faixa e mete obstaculo nela
+}
+
+function criar_boss() {
+    if (boss_ativo) {
+        return;
+    }
+
+    boss_ativo = true;
+
+    clearInterval(gerador_obstaculos);
+    gerador_obstaculos = null;
+
+    document.querySelectorAll(".obstaculo").forEach(function (obstaculo) {
+        obstaculo.remove();
+    });
+
+    quadro_boss = 0;
+    vida_boss = vidas_bosses[fase_atual];
+
+    boss = document.createElement("img");
+    boss.className = "boss";
+    boss.src = sprites_bosses[fase_atual][quadro_boss];
+    boss.alt = "boss";
+
+    campo.appendChild(boss);
+    animar_boss();
+    mover_boss();
+}
+
+function animar_boss() {
+    clearInterval(animacao_boss);
+
+    animacao_boss = setInterval(function () {
+        quadro_boss++;
+
+        if (quadro_boss > 2) {
+            quadro_boss = 0;
+        }
+
+        boss.src = sprites_bosses[fase_atual][quadro_boss];
+    }, 300);
+}
+
+function mover_boss() {
+    clearInterval(movimento_boss);
+
+    faixa_boss = 2;
+    direcao_boss = 1;
+    boss.style.top = posicoes_boss[faixa_boss];
+
+    movimento_boss = setInterval(function () {
+        faixa_boss = faixa_boss + direcao_boss;
+
+        if (faixa_boss === 4) {
+            direcao_boss = -1;
+        } else if (faixa_boss === 0) {
+            direcao_boss = 1;
+        }
+
+        boss.style.top = posicoes_boss[faixa_boss];
+    }, 900);
 }
 
 function iniciar_obstaculos() {
@@ -141,7 +310,11 @@ function verificar_colisao() {
                 tiro.remove();
 
                 let vida_obstaculo = Number(obstaculo.dataset.vida);  //logica p denifiçao de vidas diferentes p cada asteróide
-                vida_obstaculo--;
+                if (dano_dobrado) {
+                    vida_obstaculo = vida_obstaculo - 2;
+                } else {
+                    vida_obstaculo = vida_obstaculo - 1;
+                }
                 obstaculo.dataset.vida = vida_obstaculo;
 
                 if (vida_obstaculo <= 0) {
@@ -150,6 +323,9 @@ function verificar_colisao() {
                     score_fase++;  //soma pontos a cada obstaculo destruido
                     score_total++;
                     hud_score.textContent = score_fase;
+                    if (score_fase === 30) {
+                        criar_boss();
+                    }
                 }
             }
         });
@@ -188,14 +364,212 @@ function atirar() {
     }, intervalo_tiro);
 }
 
+function atualizar_vidas() { //atualiza as vidas de acordo c quantas vidas o jogador tem
+    hud_vidas.innerHTML =
+        '<img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">'.repeat(vidas);
+}
+
+function perder_vida() {
+    if (protegido || barreira_ativa || jogo.hidden) { //evita que o jogador perca vida se ele estiver protegido, se a barreira estiver ativa ou se o jogo estiver escondido
+        return;
+    }
+
+    protegido = true;
+    vidas--;
+    atualizar_vidas();
+
+    setTimeout(function () {
+        protegido = false;
+    }, 1000);
+}
+
+function ativar_barreira() {
+    if (nave_escolhida !== "barreira" || !habilidade_pronta) {
+        return;
+    }
+
+    habilidade_pronta = false;
+    barreira_ativa = true;
+    nave_jogador.classList.add("barreira-ativa"); //css da barreira
+    hud_habilidade.textContent = "barreira ativa";
+
+    fim_habilidade = setTimeout(function () {
+        barreira_ativa = false;
+        nave_jogador.classList.remove("barreira-ativa"); //css da barreira
+        hud_habilidade.textContent = "recarregando";
+    }, 3000);
+
+    fim_recarga = setTimeout(function () {
+        habilidade_pronta = true;
+        hud_habilidade.textContent = "pronta";
+    }, 15000);
+}
+
+function ativar_impacto() {
+    if (nave_escolhida !== "impacto" || !habilidade_pronta) {
+        return;
+    }
+
+    habilidade_pronta = false;
+    dano_dobrado = true;
+    nave_jogador.classList.add("impacto-ativo");
+    hud_habilidade.textContent = "dano dobrado ativo por 6 segundos";
+
+    fim_habilidade = setTimeout(function () {
+        dano_dobrado = false;
+        nave_jogador.classList.remove("impacto-ativo");
+        hud_habilidade.textContent = "recarregando";
+    }, 6000);
+
+    fim_recarga = setTimeout(function () {
+        habilidade_pronta = true;
+        hud_habilidade.textContent = "pronta";
+    }, 15000);
+}
+
+function limpar_habilidade() { //serve para limpar a habilidade ativa, caso o jogador mude de nave ou reinicie o jogo
+    clearTimeout(fim_habilidade);
+    clearTimeout(fim_recarga);
+
+    habilidade_pronta = true;
+    barreira_ativa = false;
+    dano_dobrado = false;
+
+    nave_jogador.classList.remove("barreira-ativa", "impacto-ativo");
+}
+
+function abrir_modal_fase() {
+    clearInterval(gerador_obstaculos);
+    gerador_obstaculos = null;
+    limpar_habilidade();
+
+    document.querySelectorAll(".obstaculo, .tiro").forEach(function (elemento) {
+        elemento.remove();
+    });
+
+    titulo_modal_fase.textContent = "fase " + fase_atual + " concluída";
+    texto_modal_fase.textContent = "A região foi limpa com sucesso.";
+    score_total_modal.textContent = score_total;
+
+    modal_fase.hidden = false;
+}
+
+function mostrar_vitoria() {
+    clearInterval(gerador_obstaculos);
+    gerador_obstaculos = null;
+    limpar_habilidade();
+
+    document.querySelectorAll(".obstaculo, .tiro, .boss, .tiro-boss").forEach(function (elemento) {
+        elemento.remove();
+    });
+
+    titulo_modal_final.textContent = "missão concluída";
+    texto_modal_final.textContent =
+        "Parabéns! Você limpou as três regiões e protegeu as órbitas da Terra.";
+    score_total_final.textContent = score_total;
+
+    modal_fase.hidden = true;
+    modal_final.hidden = false;
+}
+
+function reiniciar_campanha() {
+    fase_atual = 1;
+    score_fase = 0;
+    score_total = 0;
+
+    hud_fase.textContent = nomes_fases[fase_atual];
+    hud_score.textContent = score_fase;
+    arena.style.backgroundImage = fundos_fases[fase_atual];
+
+    if (nave_escolhida === "escudo") {
+        vidas = 4;
+    } else {
+        vidas = 3;
+    }
+
+    atualizar_vidas();
+    limpar_habilidade();
+
+    if (nave_escolhida === "barreira" || nave_escolhida === "impacto") {
+        hud_habilidade.textContent = "pronta";
+    }
+
+    protegido = false;
+    pode_atirar = true;
+    faixa_atual = 2;
+    mover_nave();
+
+    modal_final.hidden = true;
+    jogo.hidden = false;
+
+    iniciar_obstaculos();
+}
+
+function iniciar_proxima_fase() {
+    fase_atual++;
+    score_fase = 0;
+
+    hud_score.textContent = score_fase;
+    hud_fase.textContent = nomes_fases[fase_atual];
+    arena.style.backgroundImage = fundos_fases[fase_atual];
+
+    if (nave_escolhida === "escudo") {
+        vidas = 4;
+    } else {
+        vidas = 3;
+    }
+
+    atualizar_vidas();
+
+    protegido = false;
+    pode_atirar = true;
+    faixa_atual = 2;
+    mover_nave();
+
+    modal_fase.hidden = true;
+    iniciar_obstaculos();
+}
+
 function mover_nave() {
-
-
     faixas[faixa_atual].appendChild(nave_jogador);
 }
 
 botao_como_jogar.addEventListener("click", function () {
     modal_como_jogar.hidden = false;  // exibe o modal de como jogar - hidden = false
+});
+botao_reiniciar.addEventListener("click", function () {
+    reiniciar_campanha();
+});
+
+botao_menu.addEventListener("click", function () {
+    clearInterval(gerador_obstaculos);
+    gerador_obstaculos = null;
+    clearTimeout(temporizador_historia);
+    limpar_habilidade();
+
+    document.querySelectorAll(".obstaculo, .tiro, .boss, .tiro-boss").forEach(function (elemento) {
+        elemento.remove();
+    });
+
+    fase_atual = 1;
+    score_fase = 0;
+    score_total = 0;
+    nave_escolhida = "";
+
+    hud_fase.textContent = nomes_fases[fase_atual];
+    hud_score.textContent = score_fase;
+    arena.style.backgroundImage = fundos_fases[fase_atual];
+
+    protegido = false;
+    pode_atirar = true;
+    faixa_atual = 2;
+    mover_nave();
+
+    modal_final.hidden = true;
+    jogo.hidden = true;
+    historia.hidden = true;
+    selecao_nave.hidden = true;
+    tela_inicial.hidden = false;
 });
 
 botao_fechar_como_jogar.addEventListener("click", function () {
@@ -208,6 +582,10 @@ botao_creditos.addEventListener("click", function () {
 
 botao_fechar_creditos.addEventListener("click", function () {
     modal_creditos.hidden = true;  // esconde o modal de créditos - hidden = true
+});
+
+botao_proxima_fase.addEventListener("click", function () {
+    iniciar_proxima_fase();
 });
 
 botao_start.addEventListener("click", function () {
@@ -255,6 +633,7 @@ botao_voltar_selecao.addEventListener("click", function () {
 });
 
 botao_voltar_jogo.addEventListener("click", function () {
+    limpar_habilidade();
     clearInterval(gerador_obstaculos);
     gerador_obstaculos = null;
     document.querySelectorAll(".obstaculo, .tiro").forEach(function (elemento) {
@@ -270,6 +649,7 @@ botao_voltar_jogo.addEventListener("click", function () {
 
 botao_escolher_escudo.addEventListener("click", function () {
     nave_escolhida = "escudo";
+    vidas = 4;
 
     nave_jogador.src = "assets/images/naves/nave-escudo.png";
     hud_vidas.innerHTML =
@@ -283,6 +663,7 @@ botao_escolher_escudo.addEventListener("click", function () {
 
 botao_escolher_rajada.addEventListener("click", function () {
     nave_escolhida = "rajada";
+    vidas = 3;
 
     nave_jogador.src = "assets/images/naves/nave-rajada.png";
     hud_vidas.innerHTML =
@@ -296,6 +677,7 @@ botao_escolher_rajada.addEventListener("click", function () {
 
 botao_escolher_barreira.addEventListener("click", function () {
     nave_escolhida = "barreira";
+    vidas = 3;
 
     nave_jogador.src = "assets/images/naves/nave-barreira.png";
     hud_vidas.innerHTML =
@@ -309,11 +691,12 @@ botao_escolher_barreira.addEventListener("click", function () {
 
 botao_escolher_impacto.addEventListener("click", function () {
     nave_escolhida = "impacto";
+    vidas = 3;
 
     nave_jogador.src = "assets/images/naves/nave-impacto.png";
     hud_vidas.innerHTML =
         '<img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">'.repeat(3);
-    hud_habilidade.textContent = "dano dobrado";
+    hud_habilidade.textContent = "dano dobrado por 6 segundos";
 
     selecao_nave.hidden = true;
     jogo.hidden = false;
@@ -346,5 +729,9 @@ document.addEventListener("keydown", function (evento) {  //adiciona um evento d
     if (evento.key === " ") {  //verifica se a tecla pressionada é espaço, que é a tecla para atirar
         evento.preventDefault();
         atirar();
+    }
+    if (evento.key.toLowerCase() === "e") {
+        ativar_barreira();
+        ativar_impacto();
     }
 });
