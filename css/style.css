@@ -33,6 +33,7 @@ body {
 }
 
 .tela-frame {
+    position: relative;
     width: 100%;
     max-width: 1280px;
     max-height: 100%;
@@ -44,6 +45,34 @@ body {
     border: 4px solid #65e6ff;
     box-shadow: 8px 8px 0 #020611;
     image-rendering: pixelated;
+}
+
+.botao-voltar {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 38px;
+    padding: 0;
+    color: #65e6ff;
+    background-color: #07142f;
+    border: 3px solid #65e6ff;
+    box-shadow: 4px 4px 0 #020611;
+    font-family: inherit;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.botao-voltar:hover {
+    color: #020611;
+    background-color: #65e6ff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #020611;
 }
 
 .tela-frame-menu,
