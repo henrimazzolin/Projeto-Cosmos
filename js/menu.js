@@ -210,7 +210,7 @@ function criar_obstaculo() {
     }
 
     obstaculo.src = detritos_fases[fase_atual][imagem_sorteada];
-    obstaculo.dataset.vida = imagem_sorteada + 1;
+    obstaculo.dataset.vida = imagem_sorteada + 1; //
     obstaculo.style.animationDuration = tempos_detritos[imagem_sorteada];
     obstaculo.style.width = tamanhos_detritos[imagem_sorteada];
     obstaculo.style.height = tamanhos_detritos[imagem_sorteada];
@@ -332,7 +332,76 @@ function verificar_colisao() {
     });
 }
 
-setInterval(verificar_colisao, 20);
+function derrotar_boss() {
+    boss_ativo = false;
+
+    clearInterval(animacao_boss);
+    clearInterval(movimento_boss);
+
+    let quadro_explosao = 0;
+
+    boss.classList.add("explosao-boss");
+    boss.src = sprites_explosao[quadro_explosao];
+    boss.alt = "";
+
+    const animacao_explosao = setInterval(function () {
+        quadro_explosao++;
+
+        if (quadro_explosao >= sprites_explosao.length) {
+            clearInterval(animacao_explosao);
+            boss.remove();
+
+            if (fase_atual === 3) {
+                mostrar_vitoria();
+            } else {
+                abrir_modal_fase();
+            }
+
+            return;
+        }
+
+        boss.src = sprites_explosao[quadro_explosao];
+    }, 120);
+}
+
+function verificar_colisao_boss() {  //
+    if (!boss_ativo || !boss) {
+        return;
+    }
+
+    const tiros = document.querySelectorAll(".tiro");
+    const area_boss = boss.getBoundingClientRect();
+
+    tiros.forEach(function (tiro) {
+        if (!boss_ativo) {
+            return;
+        }
+
+        const area_tiro = tiro.getBoundingClientRect();
+
+        if ( //verifica se o tiro colidiu com o boss, usando a função getBoundingClientRect() para pegar as coordenadas do tiro e do boss
+            area_tiro.right >= area_boss.left &&
+            area_tiro.left <= area_boss.right &&
+            area_tiro.bottom >= area_boss.top &&
+            area_tiro.top <= area_boss.bottom
+        ) {
+            tiro.remove();
+
+            if (dano_dobrado) {
+                vida_boss = vida_boss - 2;
+            } else {
+                vida_boss = vida_boss - 1;
+            }
+
+            if (vida_boss <= 0) {
+                derrotar_boss();
+            }
+        }
+    });
+}
+
+setInterval(verificar_colisao, 20); //essa função serve para verificar a colisão entre os tiros e os obstáculos, ela é chamada a cada 20 milissegundos
+setInterval(verificar_colisao_boss, 20); //essa função serve para verificar a colisão entre os tiros e o boss, ela é chamada a cada 20 milissegundos
 //-----------------------------------------------------------------------------------------------------
 
 function atirar() {
