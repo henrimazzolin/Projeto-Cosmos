@@ -14,6 +14,10 @@ body {
 body {
     color: white;
     background-color: #020611;
+    background-image: url("../assets/images/backgrounds/fundo-estelar-oficial.png");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
     font-family: "Courier New", monospace;
     overflow: hidden;
 }
@@ -25,7 +29,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: #020611;
+    background-color: transparent;
 }
 
 .tela-inicial[hidden] {
@@ -83,39 +87,65 @@ body {
     padding: 20px;
 }
 
+.tela-frame-menu {
+    isolation: isolate;
+}
+
+.logo-cosmos-educa {
+    position: absolute;
+    top: 22px;
+    right: 26px;
+    z-index: 2;
+    width: 102px;
+    height: auto;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter: drop-shadow(3px 3px 0 #020611)
+            drop-shadow(0 0 8px rgba(101, 230, 255, 0.35));
+}
+
 .menu {
-    width: 560px;
+    position: relative;
+    z-index: 1;
+    width: 650px;
     max-width: 90%;
-    padding: 32px;
+    padding: 24px 32px 28px;
     text-align: center;
     background-color: rgba(2, 10, 30, 0.82);
     border: 4px solid #65e6ff;
     box-shadow: 8px 8px 0 #08172f;
 }
 
-.nome-projeto {
-    color: #f3f6f7;
-    font-size: 23px;
-    letter-spacing: 4px;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    font-weight: 700;
-    border-bottom: 2px solid #ffffff;
+.titulo-cosmos-game {
+    line-height: 0;
 }
 
-.menu h1 {
-    font-size: 52px;
-    line-height: 1;
-    text-transform: uppercase;
-    text-shadow: 4px 4px 0 #2d2e30;
-    margin-bottom: 18px;
+.titulo-cosmos-game img {
+    display: block;
+    width: 510px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 8px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 8px rgba(101, 230, 255, 0.26));
+}
+
+.titulo-operacao {
+    display: block;
+    width: 410px;
+    max-width: 42%;
+    height: auto;
+    margin: 0 auto 4px;
+    object-fit: contain;
+    image-rendering: pixelated;
 }
 
 .frase {
     color: #bcefff;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 }
 
 .botoes {
@@ -153,6 +183,51 @@ body {
     background-color: #ffb52e;
     border-color: #ffe08a;
 } */
+
+@media (max-width: 720px) {
+    .tela-inicial {
+        padding: 8px;
+    }
+
+    .tela-frame-menu {
+        padding: 10px;
+    }
+
+    .logo-cosmos-educa {
+        top: 10px;
+        right: 12px;
+        width: 62px;
+    }
+
+    .menu {
+        width: 86%;
+        padding: 14px 18px 16px;
+    }
+
+    .titulo-cosmos-game img {
+        width: 390px;
+        margin-bottom: 4px;
+    }
+
+    .titulo-operacao {
+        width: 300px;
+    }
+
+    .frase {
+        margin-bottom: 12px;
+        font-size: 13px;
+    }
+
+    .botoes {
+        gap: 8px;
+    }
+
+    .botoes button {
+        min-height: 36px;
+        padding: 6px 12px;
+        font-size: 16px;
+    }
+}
 
 .modal {       /*css qie vai ser usado em todos os modais */
     position: fixed;
@@ -345,7 +420,7 @@ kbd {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: #020611;
+    background-color: transparent;
 }
 
 .historia[hidden] {
@@ -367,6 +442,22 @@ kbd {
     font-size: 32px;
     margin-bottom: 24px;
     text-transform: uppercase;
+}
+
+.caixa-historia .titulo-alerta {
+    margin-bottom: 14px;
+    line-height: 0;
+}
+
+.titulo-alerta img {
+    display: block;
+    width: 560px;
+    max-width: 40%;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 10px rgba(255, 22, 22, 0.28));
 }
 
 #texto-historia {
@@ -402,7 +493,7 @@ kbd {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: #020611;
+    background-color: transparent;
 }
 
 .selecao-nave[hidden] {
@@ -533,7 +624,7 @@ kbd {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: #020611;
+    background-color: transparent;
 }
 
 .jogo[hidden] {
