@@ -5,10 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmos Game</title>
+    <link rel="icon" type="image/png" href="assets/images/branding/favicon.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+    <!-- Bloqueia o jogo enquanto os arquivos carregam. -->
+    <section class="tela-carregamento" id="tela-carregamento" aria-live="polite" aria-label="Carregando o jogo">
+        <img src="assets/images/branding/favicon.png" alt="" aria-hidden="true">
+        <p id="status-carregamento">preparando missão...</p>
+        <div class="barra-carregamento" role="progressbar" aria-label="Progresso do carregamento" aria-valuemin="0"
+            aria-valuemax="100" aria-valuenow="0">
+            <span id="progresso-carregamento"></span>
+        </div>
+        <button type="button" id="botao-tentar-novamente" hidden>tentar novamente</button>
+    </section>
     <main class="tela-inicial">
         <div class="tela-frame tela-frame-menu">
             <img class="logo-cosmos-educa" src="assets/images/branding/cosmos-educa.png" alt="Cosmos Educa">
@@ -24,7 +35,7 @@
                 <p class="frase">limpe as órbitas e proteja o futuro</p>
 
                 <div class="botoes">
-                    <button type="button" id="botao-start">start</button>
+                    <button type="button" id="botao-start" disabled>start</button>
                     <button type="button" id="botao-como-jogar">como jogar</button>
                     <button type="button" id="botao-creditos">créditos</button>
                 </div>
@@ -130,7 +141,7 @@
             <button type="button" class="botao-voltar" id="voltar-jogo" aria-label="Voltar à seleção de nave"
                 title="Voltar">←</button>
 
-            <!--botoes p controlar os audios durante o jogo-->
+            <!-- Controles de áudio. -->
             <div class="controles-audio" aria-label="Controles de áudio">
                 <button type="button" id="botao-musica" aria-label="Desligar música" aria-pressed="false"
                     title="Música ligada">
@@ -143,7 +154,7 @@
                 </button>
             </div>
 
-            <!--aparece por dois segundos antes de cada fase-->
+            <!-- Apresenta a fase antes da partida. -->
             <div class="apresentacao-fase" id="apresentacao-fase" hidden>
                 <div class="texto-apresentacao">
                     <p id="numero-fase">fase 1</p>
@@ -163,7 +174,7 @@
                 <p>habilidade: <span id="hud-habilidade">pronta</span></p>
             </div>
 
-            <div class="campo"> <!--aqui são as linhas em que a nave vai se mover p cima e p baixo-->
+            <div class="campo"> <!-- Faixas por onde a nave se move. -->
                 <div class="faixa"></div>
                 <div class="faixa"></div>
                 <div class="faixa">

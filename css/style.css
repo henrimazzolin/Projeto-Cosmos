@@ -22,6 +22,77 @@ body {
     overflow: hidden;
 }
 
+/* Bloqueia o jogo enquanto os arquivos carregam. */
+.tela-carregamento {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 24px;
+    color: #eafaff;
+    background: #020611;
+    text-align: center;
+}
+
+.tela-carregamento[hidden] {
+    display: none;
+}
+
+.tela-carregamento img {
+    width: 128px;
+    height: 128px;
+    object-fit: cover;
+    border: 4px solid #65e6ff;
+    box-shadow: 7px 7px 0 #08172f;
+    image-rendering: pixelated;
+}
+
+.tela-carregamento p {
+    font-size: clamp(18px, 4vw, 28px);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.barra-carregamento {
+    width: min(420px, 85vw);
+    height: 26px;
+    padding: 3px;
+    background-color: #07142f;
+    border: 3px solid #65e6ff;
+    box-shadow: 5px 5px 0 #020611;
+}
+
+.barra-carregamento span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background-color: #65e6ff;
+    transition: width 180ms linear;
+}
+
+.tela-carregamento button {
+    padding: 10px 18px;
+    color: #020611;
+    background-color: #65e6ff;
+    border: 3px solid white;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.botoes button:disabled {
+    color: #8a91a3;
+    background-color: #07142f;
+    border-color: #2f7593;
+    cursor: wait;
+}
+
 .tela-inicial {
     width: 100%;
     height: 100%;
@@ -178,12 +249,6 @@ body {
     box-shadow: 6px 6px 0 #020611;
 }
 
-/* #botao-start {
-    color: #201000;
-    background-color: #ffb52e;
-    border-color: #ffe08a;
-} */
-
 @media (max-width: 720px) {
     .tela-inicial {
         padding: 8px;
@@ -229,7 +294,8 @@ body {
     }
 }
 
-.modal {       /*css qie vai ser usado em todos os modais */
+/* Estilo usado em todos os modais. */
+.modal {
     position: fixed;
     inset: 0;
     display: flex;
@@ -281,7 +347,7 @@ body {
     text-transform: uppercase;
 }
 
-/*visual simples usado somente na vitoria*/
+/* Visual usado na tela de vitória. */
 .caixa-modal-final {
     width: 540px;
 }
@@ -556,7 +622,7 @@ kbd {
 
 .lista-naves {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);   /*cria duas colunas de largura igual */
+    grid-template-columns: repeat(2, 1fr); /* Cria duas colunas iguais. */
     align-items: start;
     gap: 26px;
 }
@@ -583,7 +649,7 @@ kbd {
     width: 200px;
     max-width: 100%;
     height: 88px;
-    object-fit: contain; /*mantém a proporção da imagem */
+    object-fit: contain; /* Mantém a proporção da imagem. */
     image-rendering: pixelated;
     margin-bottom: 8px;
 }
@@ -744,6 +810,60 @@ kbd {
 
 .faixa {
     position: relative;
+}
+
+/* Marca a faixa antes do raio do segundo boss. */
+.faixa-marcada-raio {
+    background-color: rgba(255, 25, 66, 0.12);
+    animation: pulsar-faixa-raio 240ms steps(2) infinite;
+}
+
+.mira-raio-boss {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 6;
+    height: 5px;
+    transform: translateY(-50%);
+    background-color: #ff1942;
+    box-shadow: 0 0 7px #ff1942,
+                0 0 16px #ff1942;
+    pointer-events: none;
+    animation: piscar-mira-raio 180ms steps(2) infinite;
+}
+
+/* Faz o raio sair do lado do boss. */
+.raio-boss {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 7;
+    width: 88%;
+    height: 100%;
+    transform: translateY(-50%) scaleX(-1);
+    object-fit: fill;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 7px #ef39ff)
+            drop-shadow(0 0 13px #8a2eff);
+    pointer-events: none;
+}
+
+/* Marca as três faixas do raio final. */
+.faixa-marcada-raio-final {
+    background-color: rgba(255, 92, 20, 0.14);
+    animation: pulsar-faixa-raio-final 210ms steps(2) infinite;
+}
+
+.mira-raio-boss-final {
+    background-color: #ff7a18;
+    box-shadow: 0 0 8px #ff7a18,
+                0 0 18px #ff3518;
+}
+
+.raio-boss-final {
+    filter: drop-shadow(0 0 7px #ffd447)
+            drop-shadow(0 0 15px #ff3518);
 }
 
 .nave {
@@ -926,6 +1046,31 @@ kbd {
             drop-shadow(0 0 24px #65e6ff);
 }
 
+.boss-transformando {
+    animation: transformar-boss 190ms steps(2) infinite;
+}
+
+.boss-invocacao-forma-2 {
+    filter: drop-shadow(0 0 10px #ff244f)
+            drop-shadow(0 0 24px #8f001f);
+    animation: pulsar-escudo-forma-2 420ms steps(2) infinite;
+}
+
+/* Mostra o impacto no escudo vermelho. */
+.boss-invocacao-forma-2.escudo-boss-final-atingido {
+    animation: impacto-escudo-boss-final 160ms steps(2) both;
+}
+
+.aviso-segunda-forma strong {
+    color: #ff7a18;
+    text-shadow: 5px 5px 0 #6e1600,
+                 0 0 20px #ffd447;
+}
+
+.aviso-segunda-forma span {
+    border-color: #ff7a18;
+}
+
 .barra-vida-boss {
     position: absolute;
     left: 50%;
@@ -970,7 +1115,18 @@ kbd {
     transition: width 120ms linear;
 }
 
-/*tela curta q apresenta a proxima fase*/
+.barra-vida-boss-forma-2 {
+    border-color: #ffd447;
+    box-shadow: 5px 5px 0 #020611,
+                0 0 16px rgba(255, 90, 24, 0.8);
+}
+
+.vida-atual-boss-forma-2 {
+    background: linear-gradient(90deg, #ff2418, #ff7a18, #ffd447);
+    animation: pulsar-vida-forma-2 360ms steps(2) infinite;
+}
+
+/* Mostra a fase antes da partida. */
 .apresentacao-fase {
     position: absolute;
     inset: 0;
@@ -1014,6 +1170,57 @@ kbd {
 @keyframes piscar-aviso {
     50% {
         opacity: 0.35;
+    }
+}
+
+@keyframes piscar-mira-raio {
+    50% {
+        opacity: 0.28;
+    }
+}
+
+@keyframes pulsar-faixa-raio {
+    50% {
+        background-color: rgba(255, 25, 66, 0.24);
+    }
+}
+
+@keyframes pulsar-faixa-raio-final {
+    50% {
+        background-color: rgba(255, 92, 20, 0.3);
+    }
+}
+
+@keyframes transformar-boss {
+    50% {
+        transform: translateY(-50%) scale(1.045);
+        filter: brightness(1.7)
+                drop-shadow(0 0 22px #ff7a18);
+    }
+}
+
+@keyframes pulsar-escudo-forma-2 {
+    50% {
+        filter: brightness(1.35)
+                drop-shadow(0 0 16px #ff4d6d)
+                drop-shadow(0 0 30px #b3002d);
+    }
+}
+
+@keyframes impacto-escudo-boss-final {
+    50% {
+        transform: translateY(-50%) scale(1.075);
+        filter: brightness(2.5)
+                saturate(1.5)
+                drop-shadow(0 0 10px #fff0f3)
+                drop-shadow(0 0 24px #ff1748)
+                drop-shadow(0 0 42px #b3002d);
+    }
+}
+
+@keyframes pulsar-vida-forma-2 {
+    50% {
+        filter: brightness(1.45);
     }
 }
 
