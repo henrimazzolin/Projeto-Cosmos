@@ -281,6 +281,33 @@ body {
     text-transform: uppercase;
 }
 
+/*visual simples usado somente na vitoria*/
+.caixa-modal-final {
+    width: 540px;
+}
+
+.emblema-vitoria {
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin: -6px auto 10px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.emblema-vitoria[hidden] {
+    display: none;
+}
+
+.modal-vitoria .caixa-modal-final {
+    border-color: #ffd447;
+    box-shadow: 8px 8px 0 #4e0717;
+}
+
+.modal-vitoria .caixa-modal-final h2 {
+    color: #ffd447;
+}
+
 .caixa-como-jogar {
     width: 920px;
     max-height: calc(100vh - 40px);
@@ -640,7 +667,7 @@ kbd {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    padding: 0 20px;
+    padding: 0 122px 0 20px;
     background-color: rgba(2, 10, 30, 0.9);
     border-bottom: 3px solid #65e6ff;
 }
@@ -661,6 +688,58 @@ kbd {
     display: grid;
     grid-template-rows: repeat(5, 1fr);
     position: relative;
+}
+
+.campo-alerta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(2, 6, 17, 0.72);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.aviso-boss {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 7;
+}
+
+.aviso-boss strong {
+    color: #ff365f;
+    font-size: clamp(42px, 8vw, 88px);
+    line-height: 1;
+    text-shadow: 5px 5px 0 #4e0717,
+                 0 0 18px #ff365f;
+    animation: piscar-aviso 400ms steps(2) infinite;
+}
+
+.aviso-boss span {
+    padding: 8px 18px;
+    color: #ffd447;
+    background-color: rgba(2, 6, 17, 0.9);
+    border: 3px solid #ff365f;
+    font-size: clamp(16px, 3vw, 28px);
+    font-weight: 700;
+    box-shadow: 5px 5px 0 #020611;
+}
+
+.arena-alerta {
+    animation: tremer-alerta 360ms linear;
+}
+
+.arena-impacto {
+    animation: tremer-impacto 160ms linear;
 }
 
 .faixa {
@@ -716,10 +795,102 @@ kbd {
     top: 50%;
     width: 72px;
     height: 72px;
-    object-fit: contain;
     transform: translateY(-50%);
-    image-rendering: pixelated;
     animation: mover-obstaculo 4s linear forwards;
+}
+
+.detrito-atingido {
+    filter: brightness(3) saturate(0);
+}
+
+.imagem-obstaculo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    z-index: 3;
+}
+
+.barra-vida-detrito {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 2px);
+    width: 78%;
+    height: 7px;
+    transform: translateX(-50%);
+    background-color: #210b20;
+    border: 2px solid #f5f7ff;
+    box-shadow: 2px 2px 0 #020611;
+    overflow: hidden;
+}
+
+.controles-audio {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+}
+
+.controles-audio button {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 40px;
+    padding: 0;
+    color: #65e6ff;
+    background-color: #07142f;
+    border: 3px solid #65e6ff;
+    box-shadow: 4px 4px 0 #020611;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.controles-audio button:hover {
+    color: #020611;
+    background-color: #65e6ff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #020611;
+}
+
+.controles-audio .audio-desligado {
+    color: #8a91a3;
+    border-color: #ff365f;
+    background-color: #210b20;
+}
+
+.controles-audio .audio-desligado::after {
+    content: "";
+    position: absolute;
+    width: 42px;
+    height: 4px;
+    transform: rotate(-38deg);
+    background-color: #ff365f;
+    box-shadow: 2px 2px 0 #4e0717;
+}
+
+.vida-atual-detrito {
+    width: 100%;
+    height: 100%;
+    background-color: #65e6ff;
+    transition: width 100ms linear;
+}
+
+.explosao-detrito {
+    position: absolute;
+    top: 50%;
+    width: 96px;
+    height: 96px;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    image-rendering: pixelated;
+    z-index: 2;
 }
 
 .boss {
@@ -734,6 +905,146 @@ kbd {
     image-rendering: pixelated;
     z-index: 3;
     transition: top 700ms linear;
+}
+
+.boss-entrando {
+    animation: entrada-boss 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.boss-atingido {
+    filter: brightness(2.4) sepia(1) saturate(8) hue-rotate(320deg)
+            drop-shadow(0 0 18px #ff365f);
+}
+
+.boss-escudo-atingido {
+    filter: brightness(2)
+            drop-shadow(0 0 12px #65e6ff)
+            drop-shadow(0 0 24px #65e6ff);
+}
+
+.barra-vida-boss {
+    position: absolute;
+    left: 50%;
+    top: 18px;
+    width: 58%;
+    height: 22px;
+    transform: translateX(-50%);
+    background-color: #210b20;
+    border: 4px solid #f5f7ff;
+    box-shadow: 5px 5px 0 #020611;
+    overflow: hidden;
+    z-index: 5;
+    transition: opacity 300ms linear;
+}
+
+.barra-vida-boss-entrada {
+    opacity: 0;
+}
+
+.vida-atual-boss {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff3c7d, #ff8a34);
+    transition: width 120ms linear;
+}
+
+/*tela curta q apresenta a proxima fase*/
+.apresentacao-fase {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background-color: rgba(2, 6, 17, 0.9);
+    z-index: 18;
+}
+
+.apresentacao-fase[hidden] {
+    display: none;
+}
+
+.texto-apresentacao {
+    width: min(78%, 720px);
+    padding: 24px;
+    color: #f5f7ff;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0 #020611;
+    animation: aparecer-texto-fase 350ms steps(4);
+}
+
+.texto-apresentacao p:first-child {
+    color: #ffd447;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 700;
+}
+
+.texto-apresentacao h2 {
+    margin: 12px 0 24px;
+    color: #65e6ff;
+    font-size: clamp(30px, 6vw, 64px);
+}
+
+.texto-apresentacao p:last-child {
+    font-size: clamp(15px, 2vw, 22px);
+    line-height: 1.5;
+}
+
+@keyframes piscar-aviso {
+    50% {
+        opacity: 0.35;
+    }
+}
+
+@keyframes aparecer-texto-fase {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes tremer-alerta {
+    20% {
+        transform: translateX(-7px);
+    }
+
+    40% {
+        transform: translateX(7px);
+    }
+
+    60% {
+        transform: translateX(-5px);
+    }
+
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes tremer-impacto {
+    35% {
+        transform: translateX(-5px);
+    }
+
+    70% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes entrada-boss {
+    from {
+        right: -48%;
+        filter: brightness(0.4) drop-shadow(0 0 0 transparent);
+    }
+
+    to {
+        right: 20px;
+        filter: brightness(1) drop-shadow(0 0 18px #ff365f);
+    }
 }
 
 @keyframes mover-obstaculo {

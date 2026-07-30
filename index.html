@@ -129,6 +129,29 @@
         <div class="arena tela-frame">
             <button type="button" class="botao-voltar" id="voltar-jogo" aria-label="Voltar à seleção de nave"
                 title="Voltar">←</button>
+
+            <!--botoes p controlar os audios durante o jogo-->
+            <div class="controles-audio" aria-label="Controles de áudio">
+                <button type="button" id="botao-musica" aria-label="Desligar música" aria-pressed="false"
+                    title="Música ligada">
+                    ♫
+                </button>
+
+                <button type="button" id="botao-som" aria-label="Desligar efeitos sonoros" aria-pressed="false"
+                    title="Efeitos sonoros ligados">
+                    🔊
+                </button>
+            </div>
+
+            <!--aparece por dois segundos antes de cada fase-->
+            <div class="apresentacao-fase" id="apresentacao-fase" hidden>
+                <div class="texto-apresentacao">
+                    <p id="numero-fase">fase 1</p>
+                    <h2 id="nome-fase">Órbita Baixa</h2>
+                    <p id="descricao-fase">detritos metálicos e satélites quebrados ocupam esta região</p>
+                </div>
+            </div>
+
             <div class="hud">
                 <p>fase: <span id="hud-fase">Órbita Baixa</span></p>
                 <p>score: <span id="hud-score">0</span></p>
@@ -242,7 +265,9 @@
         </div>
     </section>
     <section class="modal" id="modal-final" hidden>
-        <div class="caixa-modal">
+        <div class="caixa-modal caixa-modal-final">
+            <img class="emblema-vitoria" id="emblema-vitoria" src="assets/images/ui/vitoria-emblema.png" alt="Troféu da missão" hidden>
+
             <h2 id="titulo-modal-final">missão concluída</h2>
 
             <p id="texto-modal-final">
