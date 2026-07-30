@@ -84,6 +84,7 @@ let boss_ativo = false;
 let vida_boss = 0;
 let barra_vida_boss; //guarda a barra grande de vida do boss
 let vida_atual_boss; //guarda a parte colorida q diminui
+let nome_boss; //guarda o nome q aparece em cima da barra
 let quadro_boss = 0;
 let animacao_boss;
 let boss_invocando = false; //serve p saber se o boss ta invocando
@@ -232,6 +233,8 @@ let temporizador_historia;
 
 let nave_escolhida = ""; //escolha pode mudar ao reiniciar
 let pode_atirar = true;
+let espaco_pressionado = false;
+let tiro_segurado;
 
 function trocar_musica() {
     musica_ligada = !musica_ligada; //troca entre ligado e desligado
@@ -409,11 +412,15 @@ function criar_boss() {
 
     barra_vida_boss = document.createElement("div");
     vida_atual_boss = document.createElement("div");
+    nome_boss = document.createElement("strong");
     barra_vida_boss.className = "barra-vida-boss barra-vida-boss-entrada";
     vida_atual_boss.className = "vida-atual-boss";
+    nome_boss.className = "nome-boss nome-boss-entrada";
+    nome_boss.textContent = nomes_bosses[fase_atual];
     barra_vida_boss.appendChild(vida_atual_boss);
 
     campo.appendChild(boss);
+    campo.appendChild(nome_boss);
     campo.appendChild(barra_vida_boss); //coloca a barra grande no topo do campo
 
     faixa_boss = 2;
@@ -453,6 +460,7 @@ function mostrar_entrada_boss() {
         arena.classList.remove("arena-alerta");
         boss.classList.remove("boss-entrando");
         barra_vida_boss.classList.remove("barra-vida-boss-entrada");
+        nome_boss.classList.remove("nome-boss-entrada");
         musica_jogo.volume = 1;
         boss_protegido = false; //deixa o boss vulneravel depois da entrada
 
@@ -605,6 +613,11 @@ function parar_boss() {
 
     if (barra_vida_boss) {
         barra_vida_boss.remove(); //remove a barra de vida do boss
+    }
+
+    if (nome_boss) {
+        nome_boss.remove(); //remove o nome junto c a barra
+        nome_boss = null;
     }
 
 }
@@ -795,7 +808,7 @@ setInterval(verificar_colisao_nave, 20); //confere a colisao da nave varias veze
 //-----------------------------------------------------------------------------------------------------
 
 function atirar() {
-    if (!pode_atirar) {
+    if (!pode_atirar || jogo.hidden || !modal_fase.hidden || !modal_final.hidden || !apresentacao_fase.hidden) {
         return;
     }
 
@@ -825,6 +838,21 @@ function atirar() {
     }, intervalo_tiro);
 }
 
+function iniciar_tiro_segurado() { //mantem o tiro mesmo mudando de faixa
+    if (espaco_pressionado) {
+        return;
+    }
+
+    espaco_pressionado = true;
+    atirar();
+    tiro_segurado = setInterval(atirar, 30);
+}
+
+function parar_tiro_segurado() {
+    espaco_pressionado = false;
+    clearInterval(tiro_segurado);
+}
+
 function atualizar_vidas() { //atualiza as vidas de acordo c quantas vidas o jogador tem
     hud_vidas.innerHTML =
         '<img class="icone-vida" src="assets/images/ui/coracao-pixel.png" alt="">'.repeat(vidas);
@@ -838,14 +866,17 @@ function perder_vida() {
     protegido = true;
     vidas--;
     atualizar_vidas();
+    nave_jogador.classList.add("nave-protegida"); //pisca durante a protecao
 
     if (vidas <= 0) {
+        nave_jogador.classList.remove("nave-protegida");
         mostrar_derrota(); //abre a derrota qdo todas as vidas acabam
         return;
     }
 
     setTimeout(function () {
         protegido = false;
+        nave_jogador.classList.remove("nave-protegida");
     }, 1000);
 }
 
@@ -901,7 +932,7 @@ function limpar_habilidade() { //serve para limpar a habilidade ativa, caso o jo
     barreira_ativa = false;
     dano_dobrado = false;
 
-    nave_jogador.classList.remove("barreira-ativa", "impacto-ativo");
+    nave_jogador.classList.remove("barreira-ativa", "impacto-ativo", "nave-protegida");
 }
 
 function abrir_modal_fase() {
@@ -1244,10 +1275,20 @@ document.addEventListener("keydown", function (evento) {  //adiciona um evento d
 
     if (evento.key === " ") {  //verifica se a tecla pressionada é espaço, que é a tecla para atirar
         evento.preventDefault();
-        atirar();
+        iniciar_tiro_segurado();
     }
     if (evento.key.toLowerCase() === "e") {
         ativar_barreira();
         ativar_impacto();
     }
+});
+
+document.addEventListener("keyup", function (evento) {
+    if (evento.key === " ") {
+        parar_tiro_segurado(); //para somente qdo soltar o espaco
+    }
+});
+
+window.addEventListener("blur", function () {
+    parar_tiro_segurado(); //evita tiro preso se sair da janela
 });
