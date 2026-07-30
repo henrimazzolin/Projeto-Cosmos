@@ -12,7 +12,7 @@
     <main class="tela-inicial">
         <div class="tela-frame tela-frame-menu">
             <section class="menu">
-                <p class="nome-projeto">projeto cosmos</p>
+                <p class="nome-projeto">cosmos game</p>
 
                 <h1>Operação Órbita Limpa</h1>
 
@@ -144,15 +144,66 @@
             </div>
         </div>
     </section>
-    <section class="modal" id="modal-como-jogar" hidden>
-        <div class="caixa-modal">
-            <h2>Como jogar</h2>
+    <section class="modal" id="modal-como-jogar" role="dialog" aria-modal="true"
+        aria-labelledby="titulo-como-jogar" hidden>
+        <div class="caixa-modal caixa-como-jogar">
+            <h2 id="titulo-como-jogar">Como jogar</h2>
 
-            <p>Use W ou a seta para cima para subir.</p>
-            <p>Use S ou a seta para baixo para descer.</p>
-            <p>Pressione Espaço para coletar os lixos.</p>
+            <p class="guia-resumo">
+                Pilote sua nave por cinco faixas, destrua os detritos orbitais e derrote o chefe de cada região.
+                Complete as três regiões para concluir a missão.
+            </p>
 
-            <button type="button" id="botao-fechar-como-jogar">fechar</button>
+            <div class="guia-grid">
+                <section class="guia-card">
+                    <h3>Controles</h3>
+                    <ul class="lista-guia lista-controles">
+                        <li><span><kbd>W</kbd> ou <kbd>↑</kbd></span><strong>subir uma faixa</strong></li>
+                        <li><span><kbd>S</kbd> ou <kbd>↓</kbd></span><strong>descer uma faixa</strong></li>
+                        <li><kbd>Espaço</kbd><strong>disparar</strong></li>
+                        <li><kbd>E</kbd><strong>ativar habilidade</strong></li>
+                    </ul>
+                    <p class="guia-nota">O tiro atinge apenas os alvos que estão na mesma faixa da nave.</p>
+                </section>
+
+                <section class="guia-card">
+                    <h3>Objetivo da fase</h3>
+                    <ol class="lista-guia lista-etapas">
+                        <li>Destrua <strong>30 detritos</strong>.</li>
+                        <li>Enfrente o <strong>chefe da região</strong>.</li>
+                        <li>Vença para avançar à próxima fase.</li>
+                    </ol>
+                    <p class="guia-nota">A campanha passa por Órbita Baixa, Órbita Média e Campo Kessler.</p>
+                </section>
+
+                <section class="guia-card">
+                    <h3>Detritos e pontuação</h3>
+                    <ul class="lista-guia lista-detalhes">
+                        <li><strong>Pequeno:</strong> 1 disparo</li>
+                        <li><strong>Médio:</strong> 2 disparos</li>
+                        <li><strong>Grande:</strong> 3 disparos</li>
+                    </ul>
+                    <p class="guia-nota">Cada detrito destruído vale 1 ponto. O score da fase volta a zero na região
+                        seguinte, mas o score total é acumulado até o fim da campanha.</p>
+                </section>
+
+                <section class="guia-card">
+                    <h3>Naves e vantagens</h3>
+                    <ul class="lista-guia lista-naves-guia">
+                        <li><strong>Escudo:</strong> começa cada fase com 4 vidas.</li>
+                        <li><strong>Rajada:</strong> dispara mais rapidamente.</li>
+                        <li><strong>Barreira:</strong> <kbd>E</kbd> protege por 3 segundos.</li>
+                        <li><strong>Impacto:</strong> <kbd>E</kbd> dobra o dano por 6 segundos.</li>
+                    </ul>
+                    <p class="guia-nota">Barreira e Impacto recarregam em 15 segundos. Escudo e Rajada têm vantagens
+                        passivas, por isso a tecla <kbd>E</kbd> não ativa nada nelas.</p>
+                </section>
+            </div>
+
+            <p class="guia-dica"><strong>Dica:</strong> acompanhe no painel a região atual, o score, suas vidas e o
+                estado da habilidade.</p>
+
+            <button type="button" id="botao-fechar-como-jogar">entendi</button>
         </div>
     </section>
     <section class="modal" id="modal-creditos" hidden>

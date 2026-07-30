@@ -206,6 +206,138 @@ body {
     text-transform: uppercase;
 }
 
+.caixa-como-jogar {
+    width: 920px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    text-align: left;
+    scrollbar-color: #65e6ff #07142f;
+}
+
+.caixa-como-jogar h2 {
+    text-align: center;
+}
+
+.caixa-como-jogar .guia-resumo {
+    max-width: 760px;
+    margin: 0 auto 22px;
+    color: #eafaff;
+    font-size: 18px;
+    text-align: center;
+}
+
+.guia-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.guia-card {
+    padding: 18px;
+    background-color: rgba(2, 10, 30, 0.72);
+    border: 2px solid #2f7593;
+    box-shadow: 4px 4px 0 #020611;
+}
+
+.guia-card h3 {
+    margin-bottom: 14px;
+    color: #65e6ff;
+    font-size: 19px;
+    text-transform: uppercase;
+}
+
+.lista-guia {
+    padding-left: 22px;
+    color: #eafaff;
+}
+
+.lista-guia li {
+    margin-bottom: 9px;
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+.lista-controles {
+    padding-left: 0;
+    list-style: none;
+}
+
+.lista-controles li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.lista-controles strong {
+    color: #bcefff;
+    text-align: right;
+}
+
+kbd {
+    display: inline-block;
+    min-width: 34px;
+    padding: 4px 7px;
+    color: #020611;
+    background-color: #eafaff;
+    border: 2px solid #65e6ff;
+    box-shadow: 2px 2px 0 #020611;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.guia-nota {
+    padding-top: 10px;
+    border-top: 1px solid #2f7593;
+    color: #bcefff;
+}
+
+.caixa-como-jogar .guia-nota {
+    margin: 12px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.caixa-como-jogar .guia-dica {
+    margin: 20px 0 0;
+    padding: 12px;
+    color: #eafaff;
+    background-color: #102754;
+    border-left: 4px solid #65e6ff;
+    font-size: 15px;
+    text-align: center;
+}
+
+.caixa-como-jogar > button {
+    display: block;
+    margin: 20px auto 0;
+}
+
+@media (max-width: 720px) {
+    .modal {
+        padding: 10px;
+    }
+
+    .caixa-como-jogar {
+        max-height: calc(100vh - 20px);
+        padding: 20px 16px;
+    }
+
+    .caixa-como-jogar h2 {
+        font-size: 25px;
+    }
+
+    .caixa-como-jogar .guia-resumo {
+        font-size: 16px;
+    }
+
+    .guia-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .historia {
     width: 100%;
     height: 100%;
